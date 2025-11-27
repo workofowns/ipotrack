@@ -27,10 +27,8 @@ jobs:
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v3.1.1
         with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          port: ${{ secrets.FTP_PORT }}
+          ftp-server: ftp://${{ secrets.FTP_HOST }}:${{ secrets.FTP_PORT }}
+          ftp-username: ${{ secrets.FTP_USERNAME }}
+          ftp-password: ${{ secrets.FTP_PASSWORD }}
           local-dir: dist
-          server-dir: public_html
-          dangerous-clean-slate: true
+          git-ftp-args: "--insecure"
