@@ -1,4 +1,4 @@
-name: Deploy using FTP v3.1.1
+name: Deploy to Hostinger (FTP v4)
 
 on:
   push:
@@ -20,13 +20,19 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build project
+      - name: Build Vite project
         run: npm run build
 
-      - name: Deploy with FTP
-        uses: SamKirkland/FTP-Deploy-Action@3.1.1
+      - name: Deploy via FTP (v4)
+        uses: SamKirkland/FTP-Deploy-Action@v4
         with:
-          ftp-server: ${{ secrets.FTP_HOST }}
-          ftp-username: ${{ secrets.FTP_USERNAME }}
-          ftp-password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: dist
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: ${{ secrets.FTP_PORT }}
+          protocol: ftp
+          local-dir: dist/
+          server-dir: public_html/
+          exclude: |
+            **/.git*
+          log-level: verbose
