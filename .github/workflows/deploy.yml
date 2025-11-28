@@ -1,4 +1,4 @@
-name: Deploy to Hostinger (correct website root)
+name: Deploy Vite App to Hostinger
 
 on:
   push:
@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Setup Node.js
@@ -20,19 +20,19 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Vite app
+      - name: Build Vite project
         run: npm run build
 
-      - name: Deploy via FTP (v4.3.3)
+      - name: Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
+          server: ${{ secrets.FTP_HOST }}        # 145.79.212.128
+          username: ${{ secrets.FTP_USERNAME }}  # u791880500
           password: ${{ secrets.FTP_PASSWORD }}
-          port: ${{ secrets.FTP_PORT }}
+          port: ${{ secrets.FTP_PORT }}          # 21
           protocol: ftp
           local-dir: dist/
-          server-dir: domains/ipotrack.info/public_html/
+          server-dir: ./    # <-- THIS IS THE ROOT public_html
           log-level: verbose
           exclude: |
             **/.git*
