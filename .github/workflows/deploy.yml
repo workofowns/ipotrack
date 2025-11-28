@@ -1,4 +1,4 @@
-name: Deploy to Hostinger (FTP v3.1.1)
+name: Deploy to Hostinger (FTP - working)
 
 on:
   push:
@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Setup Node.js 22
@@ -20,14 +20,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Vite project
+      - name: Build Vite app
         run: npm run build
 
-      - name: Deploy using FTP (v3.1.1)
-        uses: SamKirkland/FTP-Deploy-Action@3.1.1
+      - name: Upload via FTP
+        uses: sebastianpopp/ftp-action@v1.2.2
         with:
-          ftp-server: ${{ secrets.FTP_HOST }}
-          ftp-username: ${{ secrets.FTP_USERNAME }}
-          ftp-password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: dist
-          git-ftp-args: "--insecure"
+          host: ${{ secrets.FTP_HOST }}
+          user: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          remoteDir: /public_html/
+          localDir: dist
+          delete: true
