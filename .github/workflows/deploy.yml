@@ -1,4 +1,4 @@
-name: Deploy to Hostinger (FTP v4.3.4)
+name: Deploy to Hostinger (FTP v4.3.3)
 
 on:
   push:
@@ -23,8 +23,8 @@ jobs:
       - name: Build Vite app
         run: npm run build
 
-      - name: Deploy via FTP (v4.3.4)
-        uses: SamKirkland/FTP-Deploy-Action@4.3.4
+      - name: Deploy via FTP (v4.3.3)
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
